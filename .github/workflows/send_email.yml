@@ -15,7 +15,7 @@ jobs:
       - name: 检查环境变量
         run: |
           echo "EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}"
-          echo "RECIPIENT_EMAIL_1: ${{RECIPIENT_EMAIL_1}}"
+          echo "RECIPIENT_EMAIL_1: ${{secrets.RECIPIENT_EMAIL_1}}"
       - name: 发送邮件
         uses: dawidd6/action-send-mail@v3
         with:
