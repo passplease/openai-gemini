@@ -21,12 +21,12 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install sendgrid
+        run: pip install sendgrid python-dotenv
 
-      - name: Send email
+      - name: Send email with SendGrid
         env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.TWILIO_AUTH_TOKEN }} # 注意这里使用的是 Twilio 的 Auth Token
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
         run: |
-          python -c "import os; from sendgrid import SendGridAPIClient; from sendgrid.helpers.mail import Mail; message = Mail(from_email=os.environ['SENDER_EMAIL'], to_emails=os.environ['RECIPIENT_EMAIL'], subject='定时邮件', html_content='<strong>这是一封使用 GitHub Actions 发送的定时邮件!</strong>'); sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY']); response = sg.send(message); print(response.status_code)"
+          python -c "import os; from sendgrid import SendGridAPIClient; from sendgrid.helpers.mail import Mail; message = Mail(from_email=os.environ['SENDER_EMAIL'], to_emails=os.environ['RECIPIENT_EMAIL'], subject='定时邮件', html_content='<strong>这是一封使用 GitHub Actions 和 Twilio SendGrid 发送的定时邮件!</strong>'); sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY']); response = sg.send(message); print(response.status_code)"
