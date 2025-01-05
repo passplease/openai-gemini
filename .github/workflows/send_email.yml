@@ -12,6 +12,9 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
+      - name: 检查环境变量
+        run: |
+          echo "EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}"
       - name: 发送邮件
         uses: dawidd6/action-send-mail@v3
         with:
