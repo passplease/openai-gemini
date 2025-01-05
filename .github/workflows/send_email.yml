@@ -1,0 +1,32 @@
+name: 更新域名
+
+on:
+  schedule:
+    # 触发器将在每年的 12月1日和1月1日 00:00 UTC 执行
+    - cron: '0 0 1 12 *'  # 每年的12月1日
+    - cron: '0 0 1 1 *'   # 每年的1月1日
+  workflow_dispatch:
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install sendgrid
+
+      - name: Send email
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: |
+          python -c "import os; from sendgrid import SendGridAPIClient; from sendgrid.helpers.mail import Mail; message = Mail(from_email=os.environ['SENDER_EMAIL'], to_emails=os.environ['RECIPIENT_EMAIL'], subject='定时邮件', html_content='<strong>这是一封使用 GitHub Actions 发送的定时邮件!</strong>'); sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY']); response = sg.send(message); print(response.status_code)"
