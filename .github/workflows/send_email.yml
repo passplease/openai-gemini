@@ -31,3 +31,10 @@ jobs:
           to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}}
           from: Github Action（自动发送) # <${{secrets.EMAIL_USERNAME}}>
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
+             # upload build test reports
+      - name: Publish reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: jfoa-build-reports-定时发送邮件
+          path: .github/workflows/logs
