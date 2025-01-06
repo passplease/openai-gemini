@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 测试参数
-        if: ${{variables.DEBUG}} == 'true'
+        if: ${{vars.DEBUG}} == 'true'
         run: |
           echo "EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}"
           echo "EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}"
