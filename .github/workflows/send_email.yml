@@ -20,14 +20,14 @@ jobs:
           echo "RECIPIENT_EMAIL_1: ${{ secrets.RECIPIENT_EMAIL_1 }}"
           echo "RECIPIENT_EMAIL_2: ${{ secrets.RECIPIENT_EMAIL_2 }}"
           echo "RENEW_WEBSITE: ${{ secrets.RENEW_WEBSITE }}"
-      - name: 发送邮件
-        uses: dawidd6/action-send-mail@v3
+      - name: Send email
+        uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{secrets.EMAIL_USERNAME}} # 你的 Gmail 邮箱地址
           password: ${{secrets.EMAIL_PASSWORD}} # 你的 Gmail 应用专用密码
           subject: 域名快到期了
-          to: ${{vars.RECIPIENT_EMAIL_1}}, ${{vars.RECIPIENT_EMAIL_2}}
+          to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}}
           from: Github Action（自动发送) # <${{secrets.EMAIL_USERNAME}}>
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
