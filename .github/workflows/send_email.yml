@@ -12,10 +12,6 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
-      - name: 检查环境变量
-        run: |
-          echo "EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}"
-          echo "RECIPIENT_EMAIL_1: ${{secrets.RECIPIENT_EMAIL_1}}"
       - name: 发送邮件
         uses: dawidd6/action-send-mail@v3
         with:
@@ -25,5 +21,5 @@ jobs:
           password: ${{secrets.EMAIL_PASSWORD}} # 你的 Gmail 应用专用密码
           subject: 邮件主题
           to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}} # 多个收件人，用逗号分隔
-          from: ${{secrets.EMAIL_USERNAME}}  # 发件人邮箱 (必须与 username 相同)
-          body: 邮件正文
+          from: Github Action （自动发送）  # 发件人邮箱 (必须与 username 相同)
+          body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
