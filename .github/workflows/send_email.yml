@@ -2,10 +2,10 @@ name: 定时发送邮件
 
 on:
   schedule:
-    - cron: '0 0 10 1 *'  # 每年10月1日 00:00 (UTC 时间) 执行
-    - cron: '0 0 11 1 *'  # 每年11月1日 00:00 (UTC 时间) 执行
-    - cron: '0 0 12 1 *'  # 每年12月1日 00:00 (UTC 时间) 执行
-    - cron: '0 0 1 1 *'  # 每年1月1日 00:00 (UTC 时间) 执行
+    - cron: '0 0 31 10 *'  # 每年10月31日 00:00 (UTC 时间) 执行
+    - cron: '0 0 30 11 *'  # 每年11月31日 00:00 (UTC 时间) 执行
+    - cron: '0 0 31 12 *'  # 每年12月31日 00:00 (UTC 时间) 执行
+    - cron: '0 0 2 1 *'  # 每年1月2日 00:00 (UTC 时间) 执行
   workflow_dispatch:
 
 jobs:
@@ -20,6 +20,6 @@ jobs:
           username: ${{secrets.EMAIL_USERNAME}} # 你的 Gmail 邮箱地址
           password: ${{secrets.EMAIL_PASSWORD}} # 你的 Gmail 应用专用密码
           subject: 域名快到期了
-          to: ${{secrets.RECIPIENT_EMAIL_1}}
+          to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}}
           from: Github Action （自动发送）  # 发件人邮箱
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
