@@ -29,6 +29,9 @@ jobs:
           from: Github Action（自动发送) # <${{secrets.EMAIL_USERNAME}}>
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
           server_port: 587
+          secure: true
+          nodemailerlog: true
+          nodemailerdebug: true
       # upload build test reports
       - name: Publish reports
         if: always()
