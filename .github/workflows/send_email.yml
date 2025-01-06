@@ -21,9 +21,10 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Download JavaMail library
+      - name: Download necessary libraries
         run: |
           wget https://repo1.maven.org/maven2/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar -O javax.mail.jar
+          wget https://repo1.maven.org/maven2/javax/activation/activation/1.1.1/activation-1.1.1.jar -O activation.jar
 
       - name: Create SendMail.java
         run: |
@@ -84,8 +85,8 @@ jobs:
 
       - name: Compile and Run SendMail.java
         run: |
-          javac -cp javax.mail.jar SendMail.java
-          java -cp javax.mail.jar:. SendMail
+          javac -cp javax.mail.jar:activation.jar SendMail.java
+          java -cp javax.mail.jar:activation.jar:. SendMail
         env:
           EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}
           EMAIL_APP_PASSWORD: ${{secrets.EMAIL_APP_PASSWORD}}
