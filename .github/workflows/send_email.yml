@@ -23,16 +23,16 @@ jobs:
       - name: Send email
         uses: dawidd6/action-send-mail@v4
         with:
-          connection_url: smtp://${{secrets.EMAIL_USERNAME}}:${{secrets.EMAIL_PASSWORD}}@smtp.gmail.com:465 # 或者使用 587 端口的 smtp+starttls
+          connection_url: smtp+starttls://${{secrets.EMAIL_USERNAME}}:${{secrets.EMAIL_PASSWORD}}@smtp.gmail.com:587 # 或者使用 587 端口的 smtp+starttls
           subject: 域名快到期了
           to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}}
           from: Github Action（自动发送) # <${{secrets.EMAIL_USERNAME}}>
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
-          server_port: 465
+          server_port: 587
       # upload build test reports
       - name: Publish reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: 日志--定时发送邮件
-          path: .github/workflows/logs
+          path: logs
