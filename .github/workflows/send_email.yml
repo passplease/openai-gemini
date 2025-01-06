@@ -36,5 +36,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: jfoa-build-reports-定时发送邮件
+          name: 日志--定时发送邮件
           path: .github/workflows/logs
