@@ -23,10 +23,7 @@ jobs:
       - name: Send email
         uses: dawidd6/action-send-mail@v4
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{secrets.EMAIL_USERNAME}} # 你的 Gmail 邮箱地址
-          password: ${{secrets.EMAIL_PASSWORD}} # 你的 Gmail 应用专用密码
+          connection_url: smtp://${{secrets.EMAIL_USERNAME}}:${{secrets.EMAIL_PASSWORD}}@smtp.gmail.com:465 # 或者使用 587 端口的 smtp+starttls
           subject: 域名快到期了
           to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}}
           from: Github Action（自动发送) # <${{secrets.EMAIL_USERNAME}}>
