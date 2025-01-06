@@ -12,6 +12,14 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
+      - name: 测试参数
+        if: ${{variables.DEBUG}} == 'true'
+        run: |
+          echo "EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}"
+          echo "EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}"
+          echo "RECIPIENT_EMAIL_1: ${{ secrets.RECIPIENT_EMAIL_1 }}"
+          echo "RECIPIENT_EMAIL_2: ${{ secrets.RECIPIENT_EMAIL_2 }}"
+          echo "RENEW_WEBSITE: ${{ secrets.RENEW_WEBSITE }}"
       - name: 发送邮件
         uses: dawidd6/action-send-mail@v3
         with:
