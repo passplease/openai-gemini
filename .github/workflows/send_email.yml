@@ -14,8 +14,7 @@ jobs:
     env:
           EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}
           EMAIL_APP_PASSWORD: ${{secrets.EMAIL_APP_PASSWORD}}
-          RECIPIENT_EMAIL_1: ${{secrets.RECIPIENT_EMAIL_1}}
-          RECIPIENT_EMAIL_2: ${{secrets.RECIPIENT_EMAIL_2}}
+          RECIPIENT_EMAIL: ${{secrets.RECIPIENT_EMAIL}}
           RENEW_WEBSITE: ${{secrets.RENEW_WEBSITE}}
     steps:
       - name: Checkout code
@@ -51,7 +50,7 @@ jobs:
 
                   final String username = System.getenv("EMAIL_USERNAME");
                   final String password = System.getenv("EMAIL_APP_PASSWORD");
-                  final String recipient = System.getenv("RECIPIENT_EMAIL_1"); // 用逗号分隔多个收件人
+                  final String recipient = System.getenv("RECIPIENT_EMAIL"); // 用逗号分隔多个收件人
                   final String renewWebsite = System.getenv("RENEW_WEBSITE");
                   final String subject = "域名到期提醒了";
                   final String body = "快要到期了，请速速续约了 " + renewWebsite;
@@ -68,6 +67,7 @@ jobs:
                                   return new PasswordAuthentication(username, password);
                               }
                           });
+                  System.out.println("目标Email: " + recipent[0] + " 等");
 
                   try {
 
@@ -80,7 +80,7 @@ jobs:
 
                       Transport.send(message);
 
-                      System.out.println("Email sent successfully!");
+                      System.out.println("邮件发送成功");
 
                   } catch (MessagingException e) {
                       throw new RuntimeException(e);
