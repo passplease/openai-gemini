@@ -19,7 +19,7 @@ jobs:
           server_port: 465
           username: ${{secrets.EMAIL_USERNAME}} # 你的 Gmail 邮箱地址
           password: ${{secrets.EMAIL_PASSWORD}} # 你的 Gmail 应用专用密码
-          subject: 邮件主题
-          to: ${{secrets.RECIPIENT_EMAIL_1}}, ${{secrets.RECIPIENT_EMAIL_2}} # 多个收件人，用逗号分隔
-          from: Github Action （自动发送）  # 发件人邮箱 (必须与 username 相同)
+          subject: 域名快到期了
+          to: ${{secrets.RECIPIENT_EMAIL_1}}
+          from: Github Action （自动发送）  # 发件人邮箱
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
