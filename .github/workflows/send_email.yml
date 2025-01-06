@@ -2,10 +2,10 @@ name: 发送域名续费邮件
 
 on:
   schedule:
-    - cron: '0 0 31 10 *'  # 每年10月31日 00:00 (UTC 时间) 执行
-    - cron: '0 0 30 11 *'  # 每年11月30日 00:00 (UTC 时间) 执行
-    - cron: '0 0 31 12 *'  # 每年12月31日 00:00 (UTC 时间) 执行
-    - cron: '0 0 2 1 *'   # 每年1月2日 00:00 (UTC 时间) 执行 
+    - cron: '0 0 31 10 *'
+    - cron: '0 0 30 11 *'
+    - cron: '0 0 31 12 *'
+    - cron: '0 0 2 1 *'
   workflow_dispatch:
 
 jobs:
@@ -18,8 +18,12 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11'  # Choose a suitable JDK version
-          distribution: 'temurin'  # Or 'adopt', 'zulu', etc.
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Download JavaMail library
+        run: |
+          wget https://repo1.maven.org/maven2/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar -O javax.mail.jar
 
       - name: Create SendMail.java
         run: |
@@ -77,11 +81,11 @@ jobs:
               }
           }
           EOF
-      
+
       - name: Compile and Run SendMail.java
         run: |
-          javac SendMail.java
-          java SendMail
+          javac -cp javax.mail.jar SendMail.java
+          java -cp javax.mail.jar:. SendMail
         env:
           EMAIL_USERNAME: ${{secrets.EMAIL_USERNAME}}
           EMAIL_APP_PASSWORD: ${{secrets.EMAIL_APP_PASSWORD}}
