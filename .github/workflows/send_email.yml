@@ -34,10 +34,4 @@ jobs:
           body: ${{secrets.RENEW_WEBSITE}} 快要到期了，该赶紧续约了
           nodemailerlog: true
           nodemailerdebug: true
-      # upload build test reports
-      - name: Publish reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: 日志--定时发送邮件
-          path: logs
+          timeout: 60
