@@ -67,7 +67,7 @@ jobs:
                                   return new PasswordAuthentication(username, password);
                               }
                           });
-                  System.out.println("目标Email: " + recipent[0] + " 等");
+                  System.out.println("目标Email: " + recipent);
 
                   try {
 
